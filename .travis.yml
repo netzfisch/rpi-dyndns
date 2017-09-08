@@ -1,0 +1,22 @@
+sudo: required
+services:
+- docker
+language: bash
+script:
+# prepare qemu
+- docker run --rm --privileged multiarch/qemu-user-static:register --reset
+# build image
+- docker build -t netzfisch/rpi-dyndns:build .
+# test image
+- docker run --entrypoint /bin/ash netzfisch/rpi-dyndns:build -c "cat /etc/ddclient/ddclient.conf"
+after_success:
+# push image
+- >
+  if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
+    TAG=$(grep "FROM " Dockerfile | sed 's/.*://')
+    docker tag netzfisch/rpi-dyndns:build netzfisch/rpi-dyndns:$TAG
+    docker tag netzfisch/rpi-dyndns:build netzfisch/rpi-dyndns:latest
+    docker push netzfisch/rpi-dyndns:$TAG
+    docker push netzfisch/rpi-dyndns:latest
+  fi

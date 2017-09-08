@@ -1,5 +1,5 @@
 # includes static quemu-library for automated builds at travis
-FROM hypriot/rpi-alpine:3.6 
+FROM hypriot/rpi-alpine:3.6
 MAINTAINER netzfisch
 
 # update base system
@@ -15,7 +15,7 @@ RUN wget --directory-prefix=/usr/sbin/ \
 RUN mkdir /etc/ddclient /var/cache/ddclient
 COPY ddclient.conf /etc/ddclient/
 COPY setup /usr/sbin/
-RUN chmod +x /usr/sbin/* 
+RUN chmod +x /usr/sbin/*
 
 ENTRYPOINT ["/usr/sbin/ddclient"]
 CMD ["-daemon=300", "-foreground", "-noquiet"]
