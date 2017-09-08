@@ -1,14 +1,21 @@
-FROM hypriot/rpi-alpine-scratch:v3.6
+# includes static quemu-library for automated builds at travis
+FROM hypriot/rpi-alpine:3.6 
 MAINTAINER netzfisch
 
-# update 'perl' and install 'ddclient' libary
-RUN apk add --update perl && \
-    rm -rf /var/cache/apk/* && \
-    cd /usr/sbin/ && \
-    wget "https://raw.githubusercontent.com/ddclient/ddclient/master/ddclient" && \
-    chmod +x ddclient
+# update base system
+RUN apk add --update ca-certificates perl perl-net-ip wget \
+  && rm -rf /var/cache/apk/*
 
-Entrypoint ["/usr/sbin/ddclient"]
-CMD ["-daemon=60", "-debug", "-verbose", "-noquiet", "-foreground"]
+# install ddclient-library
+RUN wget --directory-prefix=/usr/sbin/ \
+    'https://raw.githubusercontent.com/ddclient/ddclient/master/ddclient' \
+  && sed -i -e 's/Data::Validate/Net/' /usr/sbin/ddclient
 
-ONBUILD ADD ddclient.conf /etc/ddclient.conf
+# configure ddclient-library
+RUN mkdir /etc/ddclient /var/cache/ddclient
+COPY ddclient.conf /etc/ddclient/
+COPY setup /usr/sbin/
+RUN chmod +x /usr/sbin/* 
+
+ENTRYPOINT ["/usr/sbin/ddclient"]
+CMD ["-daemon=300", "-foreground", "-noquiet"]
