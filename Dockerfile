@@ -1,4 +1,4 @@
-# includes static quemu-library for automated builds at travis
+# includes static quemu-library for automated builds at TravisCI
 FROM hypriot/rpi-alpine:3.6
 MAINTAINER netzfisch
 
@@ -7,15 +7,15 @@ RUN apk add --update ca-certificates perl perl-net-ip wget \
   && rm -rf /var/cache/apk/*
 
 # install ddclient-library
-RUN wget --directory-prefix=/usr/sbin/ \
+RUN wget --directory-prefix=/usr/local/bin/ \
     'https://raw.githubusercontent.com/ddclient/ddclient/master/ddclient' \
-  && sed -i -e 's/Data::Validate/Net/' /usr/sbin/ddclient
+  && sed -i -e 's/Data::Validate/Net/' /usr/local/bin/ddclient
 
 # configure ddclient-library
 RUN mkdir /etc/ddclient /var/cache/ddclient
 COPY ddclient.conf /etc/ddclient/
-COPY setup /usr/sbin/
-RUN chmod +x /usr/sbin/*
+COPY setup /usr/local/bin/
+RUN chmod +x /usr/local/bin/*
 
-ENTRYPOINT ["/usr/sbin/ddclient"]
+ENTRYPOINT ["/usr/local/bin/ddclient"]
 CMD ["-daemon=300", "-foreground", "-noquiet"]
