@@ -1,11 +1,10 @@
-# rpi-dyndns
-
-Dynamic DNS updater for the ARM based Raspberry PI.
+# Dynamic DNS updater for the ARM based Raspberry PI.
 
 Get youself a **account at [spDYN](https://www.spdyn.de/)** or similar provider. If you choose a different provider - make sure to read the **Customising section.
 
 This **images target the ARM architecture**, uses the well known [ddclient](https://www.strongswan.org/) library and is based on [alpine Linux](http://www.alpinelinux.org/), and thus leads to a **slimmer image**.
 
+[![Build Status](https://travis-ci.org/netzfisch/rpi-dyndns.svg?branch=master)](https://travis-ci.org/netzfisch/rpi-dyndns)
 [![](https://images.microbadger.com/badges/version/netzfisch/rpi-dyndns.svg)](https://microbadger.com/images/netzfisch/rpi-dyndns "Inspect image") [![](https://images.microbadger.com/badges/image/netzfisch/rpi-dyndns.svg)](https://microbadger.com/images/netzfisch/rpi-dyndns "Inspect image")
 
 Find the source code at [GitHub](https://github.com/netzfisch/rpi-dyndns) or the ready-to-run image in the [DockerHub](https://hub.docker.com/r/netzfisch/rpi-dyndns/) and **do not forget to _star_** the repository ;-)
@@ -25,11 +24,11 @@ Get ready to roll and run the container:
 
 Than setup the **ddclient** by reading the **credentials from the environment** variables and storing them in the running container:
 
-    $ env docker exec ddclient setup
+    $ docker exec ddclient setup
 
 ## Customising
 
-To customise change `ddclient.conf` to your needs, e.g. see following configuration options at https://github.com/ddclient/ddclient/blob/master/sample-etc_ddclient.conf.
+To customise change `ddclient.conf` to your needs, e.g. see possible configuration options at this [template file](https://github.com/ddclient/ddclient/blob/master/sample-etc_ddclient.conf).
 
 Than build for yourself:
 
