@@ -1,7 +1,0 @@
-#!/bin/ash
-#
-# Configuration script to set/change your credentials with in the runing container
-
-sed -i -e "s/@@login@@/$HOSTNAME/" /etc/ddclient/ddclient.conf;
-sed -i -e "s/@@password@@/$UPDATE_TOKEN/" /etc/ddclient/ddclient.conf;
-sed -i -e "s/@@hostname@@/$HOSTNAME/" /etc/ddclient/ddclient.conf;

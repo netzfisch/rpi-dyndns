@@ -7,15 +7,17 @@ RUN apk add --update ca-certificates perl perl-net-ip wget \
   && rm -rf /var/cache/apk/*
 
 # install ddclient-library
-RUN wget --directory-prefix=/usr/local/bin/ \
-    'https://raw.githubusercontent.com/ddclient/ddclient/master/ddclient' \
-  && sed -i -e 's/Data::Validate/Net/' /usr/local/bin/ddclient
+WORKDIR /usr/local/bin
+RUN wget 'https://raw.githubusercontent.com/ddclient/ddclient/master/ddclient' \
+  && sed -i -e 's/Data::Validate/Net/' ddclient \
+  && chmod +x ddclient
 
 # configure ddclient-library
 RUN mkdir /etc/ddclient /var/cache/ddclient
 COPY ddclient.conf /etc/ddclient/
-COPY setup /usr/local/bin/
-RUN chmod +x /usr/local/bin/*
+RUN  sed -i -e "s/@@login@@/$HOSTNAME/g" /etc/ddclient/ddclient.conf \
+  && sed -i -e "s/@@password@@/$UPDATE_TOKEN/g" /etc/ddclient/ddclient.conf \
+  && sed -i -e "s/@@hostname@@/$HOSTNAME/g" /etc/ddclient/ddclient.conf
 
 ENTRYPOINT ["/usr/local/bin/ddclient"]
 CMD ["-daemon=300", "-foreground", "-noquiet"]
