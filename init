@@ -1,0 +1,16 @@
+#!/bin/ash
+# init script to start ddclient
+
+# exit at failure with '1'!
+set -e
+
+# replace credentials when starting container first time
+if [ ! -f /.initialized ]; then
+    sed -i -e "s/@@login@@/$HOSTNAME/g" /etc/ddclient/ddclient.conf
+    sed -i -e "s/@@password@@/$UPDATE_TOKEN/g" /etc/ddclient/ddclient.conf
+    sed -i -e "s/@@hostname@@/$HOSTNAME/g" /etc/ddclient/ddclient.conf
+    touch /.initialized
+fi
+
+# start ddclient
+ddclient -daemon=300 -foreground -noquiet
