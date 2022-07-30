@@ -28,7 +28,8 @@ Than build for yourself and run again:
 
     $ git clone git@github.com:netzfisch/rpi-dyndns.git && cd rpi-dyndns
     $ docker build -t netzfisch/rpi-dyndns:custom .
-    $ docker run ... see above parameters
+    $ docker run # ... see above parameters
+                 -e LOGIN=yourdomain # In case it differs from hostname
                  netzfisch/rpi-dyndns:custom
 
 If you just need to **manually setup, start the container without environment parameters** and replace variables with `sed`:

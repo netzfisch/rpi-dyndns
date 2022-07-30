@@ -8,7 +8,7 @@ set -u
 
 # replace credentials when starting container first time
 if [ ! -f /.initialized ]; then
-    sed -i -e "s/@@login@@/$HOSTNAME/g" /etc/ddclient/ddclient.conf
+    sed -i -e "s/@@login@@/${LOGIN:-HOSTNAME}/g" /etc/ddclient/ddclient.conf
     sed -i -e "s/@@password@@/${PASSWORD:-UPDATE_TOKEN}/g" /etc/ddclient/ddclient.conf
     sed -i -e "s/@@hostname@@/$HOSTNAME/g" /etc/ddclient/ddclient.conf
     touch /.initialized
