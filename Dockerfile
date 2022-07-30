@@ -3,7 +3,7 @@ FROM hypriot/rpi-alpine:3.6
 MAINTAINER netzfisch
 
 # update base system
-RUN apk add --update ca-certificates perl perl-net-ip wget \
+RUN apk add --update ca-certificates perl perl-io-socket-ssl perl-net-ip wget \
   && rm -rf /var/cache/apk/*
 
 # install init script + ddclient-library
