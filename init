@@ -3,6 +3,8 @@
 
 # exit at failure with '1'!
 set -e
+# exit if environment variables were not defined
+set -u
 
 # replace credentials when starting container first time
 if [ ! -f /.initialized ]; then
