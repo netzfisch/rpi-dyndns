@@ -16,24 +16,25 @@ Get ready to roll and run the container:
     $ docker run --detach \
                  --name ddclient \
                  --env HOSTNAME=yourdomain.spdns.de \
-                 --env UPDATE_TOKEN=imwg-futl-mzmw \
+                 --env PASSWORD=imwg-futl-mzmw \
                  --restart unless-stopped \
                  netzfisch/rpi-dyndns
 
 ## Customising
 
-To customise change `ddclient.conf` to your needs, e.g. see possible configuration options at this [template file](https://github.com/ddclient/ddclient/blob/master/sample-etc_ddclient.conf). Make sure to use '@@hostname/login/password@@' syntax, otherwise variable replacement will fail!
+To customise change `ddclient.conf` to your needs, e.g. see possible configuration options at this [template file](https://github.com/ddclient/ddclient/blob/master/ddclient.conf.in). Make sure to use '@@hostname/login/password@@' syntax, otherwise variable replacement will fail!
 
-Than build for yourself and run again:
+Then build for yourself and run again:
 
     $ git clone git@github.com:netzfisch/rpi-dyndns.git && cd rpi-dyndns
     $ docker build -t netzfisch/rpi-dyndns:custom .
-    $ docker run ... see above parameters
+    $ docker run # ... see above parameters
+                 -e LOGIN=yourdomain # In case it differs from hostname
                  netzfisch/rpi-dyndns:custom
 
 If you just need to **manually setup, start the container without environment parameters** and replace variables with `sed`:
 
-    $ env HOSTNAME=yourdomain.spdns.de LOGIN=yourdomain.spdns.de UPDATE_TOKEN=imwg-futl-mzmw
+    $ env HOSTNAME=yourdomain.spdns.de LOGIN=yourdomain.spdns.de PASSWORD=imwg-futl-mzmw
     $ docker exec ddclient sed -i -e 's/@@hostname@@/$HOSTNAME/g' /etc/ddclient.conf
     $ ...
 
