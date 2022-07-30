@@ -16,7 +16,7 @@ Get ready to roll and run the container:
     $ docker run --detach \
                  --name ddclient \
                  --env HOSTNAME=yourdomain.spdns.de \
-                 --env UPDATE_TOKEN=imwg-futl-mzmw \
+                 --env PASSWORD=imwg-futl-mzmw \
                  --restart unless-stopped \
                  netzfisch/rpi-dyndns
 
@@ -33,7 +33,7 @@ Than build for yourself and run again:
 
 If you just need to **manually setup, start the container without environment parameters** and replace variables with `sed`:
 
-    $ env HOSTNAME=yourdomain.spdns.de LOGIN=yourdomain.spdns.de UPDATE_TOKEN=imwg-futl-mzmw
+    $ env HOSTNAME=yourdomain.spdns.de LOGIN=yourdomain.spdns.de PASSWORD=imwg-futl-mzmw
     $ docker exec ddclient sed -i -e 's/@@hostname@@/$HOSTNAME/g' /etc/ddclient.conf
     $ ...
 
