@@ -24,7 +24,7 @@ Get ready to roll and run the container:
 
 To customise change `ddclient.conf` to your needs, e.g. see possible configuration options at this [template file](https://github.com/ddclient/ddclient/blob/master/ddclient.conf.in). Make sure to use '@@hostname/login/password@@' syntax, otherwise variable replacement will fail!
 
-Than build for yourself and run again:
+Then build for yourself and run again:
 
     $ git clone git@github.com:netzfisch/rpi-dyndns.git && cd rpi-dyndns
     $ docker build -t netzfisch/rpi-dyndns:custom .
