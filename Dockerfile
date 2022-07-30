@@ -9,7 +9,7 @@ RUN apk add --update ca-certificates perl perl-net-ip wget \
 # install init script + ddclient-library
 WORKDIR /usr/local/bin
 COPY init .
-RUN wget 'https://raw.githubusercontent.com/ddclient/ddclient/master/ddclient' \
+RUN wget 'https://github.com/ddclient/ddclient/raw/master/ddclient.in' --output-document ddclient \
   && sed -i -e 's/Data::Validate/Net/' ddclient \
   && chmod +x ./*
 

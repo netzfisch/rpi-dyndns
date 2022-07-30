@@ -22,7 +22,7 @@ Get ready to roll and run the container:
 
 ## Customising
 
-To customise change `ddclient.conf` to your needs, e.g. see possible configuration options at this [template file](https://github.com/ddclient/ddclient/blob/master/sample-etc_ddclient.conf). Make sure to use '@@hostname/login/password@@' syntax, otherwise variable replacement will fail!
+To customise change `ddclient.conf` to your needs, e.g. see possible configuration options at this [template file](https://github.com/ddclient/ddclient/blob/master/ddclient.conf.in). Make sure to use '@@hostname/login/password@@' syntax, otherwise variable replacement will fail!
 
 Than build for yourself and run again:
 
